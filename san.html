@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+	</body>
+</html>
+<script type="text/javascript">
+	//三级菜单  面向对象
+function Threemenu(){
+	this.box2 = document.getElementById("box2");
+	this.oLi1 = this.box2.querySelectorAll("#navUl1>li");
+}
+//Threemenu总体
+Threemenu.prototype = {
+	Threemenu_init(){
+		this.Threemenu_over();
+		this.Threemenu_out();
+	},
+	//移入板块
+	Threemenu_over : function(){
+		var _this = this;
+		this.box2.onmouseover = function(e){
+			_this.box2.children[1].style.display = "block";
+			for(var i=0;i<_this.oLi1.length;i++){
+				_this.oLi1[i].onmouseover = function(e){
+					var e = e||event;
+					var target = e.target||e.srcElement;
+					if(target.tagName == "A"){
+						target.style.background = "#9fdbf5";
+						target.style.color = "#fff";
+					}
+					for(var j=0;j<_this.oLi1.length;j++){
+						_this.oLi1[j].children[0].style.background = "#a7a7a7";
+					}
+					this.children[0].style.background = "#f4f4f4";
+					this.children[0].style.color = "#a7a7a7";
+					this.children[1].style.display = "block";
+				}
+			}
+		}
+	},
+	//移出板块
+	Threemenu_out : function(){
+		var _this = this;
+		this.box2.onmouseout = function(e){
+			_this.box2.children[1].style.display = "none";
+			for(var i=0;i<_this.oLi1.length;i++){
+				_this.oLi1[i].index = i;
+				_this.oLi1[i].onmouseout = function(e){
+					var e = e||event;
+					var target = e.target||e.srcElement;
+					if(target.tagName == "A"){
+						target.style.background = "#f4f4f4";
+						target.style.color = "#a7a7a7";
+					}
+					this.children[0].style.background = "#a7a7a7";
+					this.children[0].style.color = "#fff";
+					this.children[1].style.display = "none";
+				}
+			}
+		}
+	}
+}
+//调用
+new Threemenu().Threemenu_init();
+
+
+//三级菜单   面向过程
+//var oLi1 = box.box2.querySelectorAll("#navUl1>li");
+//box.box2.onmouseover = function(e){
+//	this.children[1].style.display = "block";
+//	for(var i=0;i<oLi1.length;i++){
+//		oLi1[i].onmouseover = function(e){
+//			var e = e||event;
+//			var target = e.target||e.srcElement;
+//			if(target.tagName == "A"){
+//				target.style.background = "#9fdbf5";
+//				target.style.color = "#fff";
+//			}
+//			for(var j=0;j<oLi1.length;j++){
+//				oLi1[j].children[0].style.background = "#a7a7a7";
+//			}
+//			this.children[0].style.background = "#f4f4f4";
+//			this.children[0].style.color = "#a7a7a7";
+//			this.children[1].style.display = "block";
+//		}
+//	}
+//}
+//
+//box.box2.onmouseout = function(e){
+//	this.children[1].style.display = "none";
+//	for(var i=0;i<oLi1.length;i++){
+//		oLi1[i].onmouseout = function(e){
+//			var e = e||event;
+//			var target = e.target||e.srcElement;
+//			if(target.tagName == "A"){
+//				target.style.background = "#f4f4f4";
+//				target.style.color = "#a7a7a7";
+//			}
+//			this.children[0].style.background = "#a7a7a7";
+//			this.children[0].style.color = "#fff";
+//			this.children[1].style.display = "none";
+//		}
+//	}
+//}
+</script>
